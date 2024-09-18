@@ -49,6 +49,7 @@ process alignment_snake {
     input:
     path "*"
     path refgenome_fa
+    path refgenome_faidx
     path refgenome_mmi
     path gene_annotation_bed
     path transcript_reference
@@ -105,6 +106,7 @@ workflow {
 
     // Reference genome FASTA
     refgenome = file(params.refgenome, checkIfExists: true)
+    refgenome_index = file(params.refgenome_index, checkIfExists: true)
 
     // Transcript reference GTF 
     transcript_reference = file(params.transcript_reference, checkIfExists: true)
@@ -119,6 +121,7 @@ workflow {
     alignment_snake(
         repo,
         refgenome,
+        refgenome_index,
         minimap2_index.out,
         bed,
         transcript_reference,
