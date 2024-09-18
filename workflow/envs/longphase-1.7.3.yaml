@@ -1,0 +1,5 @@
+name: longphase-1.7.3
+channels:
+  - bioconda
+dependencies:
+  - longphase=1.7.3

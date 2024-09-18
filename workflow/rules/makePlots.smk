@@ -437,8 +437,8 @@ rule make_report:
         filename=${{file##*/}}
         if [ {params.server} == "franklin" ]
         then
-            echo "Library {params.libname} has been aligned and a report is attached." | mail --content-name $filename -A {output} -s "Alignment complete: {params.libname}" {params.email}
+            echo "Library {params.libname} has been aligned and a report is attached."
         else
-            echo "Library {params.libname} has been aligned and a report is attached." | mail -a {output} -s "Alignment complete: {params.libname}" {params.email}
+            echo "Library {params.libname} has been aligned and a report is attached."
         fi
         """

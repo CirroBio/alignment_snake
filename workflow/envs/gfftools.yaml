@@ -1,0 +1,9 @@
+name: gfftools
+channels:
+ - conda-forge
+ - base
+ - defaults
+ - bioconda
+dependencies:
+ - gffread=0.12.7
+ - gffcompare=0.12.6

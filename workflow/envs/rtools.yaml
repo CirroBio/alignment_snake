@@ -1,0 +1,16 @@
+name: rtools
+channels:
+ - conda-forge
+ - base
+ - defaults
+ - bioconda
+dependencies:
+ - r-ggplot2=3.5.1
+ - r-dplyr
+ - r-plyr
+ - r-tidyr
+ - bioconductor-karyoploter
+ - bioconductor-regioner
+ - r-rcolorbrewer
+ - r-kableextra
+ - r-reshape2

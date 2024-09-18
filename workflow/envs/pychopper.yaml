@@ -1,0 +1,5 @@
+name: pychopper
+channels:
+ - bioconda
+dependencies:
+ - pychopper

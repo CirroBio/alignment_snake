@@ -6,17 +6,17 @@ channels:
   - bioconda
   - esri
 dependencies:
-  - python=3.9.0
+  - python
   - pypy3.6
-  - mpmath=1.2.1
-  - tensorflow=2.8.0
+  - mpmath
+  - tensorflow
   - pytables
   - pigz
-  - cffi=1.14.4
-  - parallel=20191122
+  - cffi
+  - parallel
   - zstd
-  - samtools=1.15.1
-  - whatshap=1.7
+  - samtools
+  - whatshap
   - xz
   - zlib
   - bzip2

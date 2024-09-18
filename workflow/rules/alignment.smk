@@ -17,7 +17,7 @@ rule make_fastqs:
         email=config["email"]
     shell:
         """
-        echo "Alignment for {wildcards.SAMPLEID} in project {wildcards.PROJECT_ID} is starting. FASTQ files are being generated from {input}" | mail -s  "Alignment for {wildcards.SAMPLEID} Starting" {params.email}
+        echo "Alignment for {wildcards.SAMPLEID} in project {wildcards.PROJECT_ID} is starting. FASTQ files are being generated from {input}"
         mkdir -p {params.outdir}
         mkdir -p {params.finaldir}
         inbams=( {input} )
