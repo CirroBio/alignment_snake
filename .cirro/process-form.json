@@ -1,0 +1,67 @@
+{
+    "ui": {},
+    "form": {
+        "type": "object",
+        "properties": {
+            "project": {
+                "title": "Project",
+                "description": "Provide the name of the project.",
+                "type": "string",
+                "default": "my_project"
+            },
+            "member": {
+                "title": "Member",
+                "description": "Provide the name of the member.",
+                "type": "string",
+                "default": "my_member"
+            },
+            "flowcell": {
+                "title": "Flowcell",
+                "description": "Provide the name of the flowcell.",
+                "type": "string",
+                "default": "my_flowcell"
+            },
+            "kit": {
+                "title": "Kit",
+                "description": "Provide the name of the kit.",
+                "type": "string",
+                "default": "my_kit"
+            },
+            "methylation": {
+                "title": "Methylation",
+                "description": "Provide the type of methylation.",
+                "type": "string",
+                "default": "5mCG_5hmCG"
+            },
+            "bed": {
+                "title": "Genomic interval (BED)",
+                "description": "Select the genomic BED file used for analysis.",
+                "type": "string",
+                "pathType": "references",
+                "file": "**/genome_bed/**/regions.bed"
+            },
+            "target_gene": {
+                "title": "Target Gene Name",
+                "description": "Provide the name of the target gene.",
+                "type": "string",
+                "default": "SLC37A4"
+            },
+            "strategy": {
+                "title": "Sequencing Strategy",
+                "description": "Provide the name of the sequencing strategy.",
+                "type": "string",
+                "default": "cDNA"
+            },
+            "qc_caller": {
+                "title": "QC Caller",
+                "description": "Provide the name of the QC caller.",
+                "type": "string",
+                "default": "cramino",
+                "enum": [
+                    "cramino",
+                    "samtools"
+                ]
+            }
+        }
+    }
+}
