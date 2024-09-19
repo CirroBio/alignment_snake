@@ -18,7 +18,8 @@ RUN conda config --add channels conda-forge && \
     conda env create -f /envs/pychopper.yaml && \
     conda env create -f /envs/stringtie.yaml && \
     conda env create -f /envs/vep-111.0.yaml && \
-    conda env create -f /envs/longphase-1.7.3.yaml
+    conda env create -f /envs/longphase-1.7.3.yaml && \
+    conda clean --all --yes
 RUN conda run -n qdnaseq-1.34.0 Rscript -e "devtools::install_github('asntech/QDNAseq.hg38@main');"
 RUN conda install -n base -c conda-forge mamba && \
     mamba init && \

@@ -3,3 +3,4 @@ channels:
   - bioconda
 dependencies:
   - longphase=1.7.3
+  - samtools
