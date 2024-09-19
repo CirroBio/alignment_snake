@@ -42,7 +42,7 @@ echo """{
   \"geneAnnotationBed\": \"${gene_annotation_bed}\",
   \"transcript_reference\": \"${transcript_reference}\",
   \"bedfiledir\": \"/n/alignments/bed_targets\",
-  \"clairmodelpath\": \"/opt/conda/envs/alignmentCalling/bin/models/\",
+  \"clairmodelpath\": \"/opt/conda/envs/alignmentCalling/bin/models\",
   \"vep_caches_path\": \"/n/dat/vep\",
   \"vep_data_path\": \"/n/dat/annotationData\",
   \"conda_alignment\": \"alignmentCalling\",

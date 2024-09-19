@@ -25,3 +25,7 @@ RUN conda install -n base -c conda-forge mamba && \
     mamba create -c conda-forge -c bioconda -n snakemake snakemake && \
     mamba clean --all --yes && \
     mamba run -n snakemake snakemake --version
+ADD https://cdn.oxfordnanoportal.com/software/analysis/models/clair3/r1041_e82_400bps_sup_v500.tar.gz /opt/conda/envs/alignmentCalling/bin/models/
+RUN cd /opt/conda/envs/alignmentCalling/bin/models/ && \
+    tar -xvf r1041_e82_400bps_sup_v500.tar.gz && \
+    rm r1041_e82_400bps_sup_v500.tar.gz
