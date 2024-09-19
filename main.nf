@@ -53,7 +53,6 @@ process alignment_snake {
     path refgenome_mmi
     path gene_annotation_bed
     path transcript_reference
-    path clair_model
     tuple val(sample_id), path(bam)
 
     output:
@@ -114,9 +113,6 @@ workflow {
     // Transcript reference GTF 
     transcript_reference = file(params.transcript_reference, checkIfExists: true)
 
-    // Clair model folder
-    clair_model = file(params.clair_model, checkIfExists: true, type: "dir")
-
     // Index the reference genome
     minimap2_index(refgenome)
 
@@ -128,7 +124,6 @@ workflow {
         minimap2_index.out,
         bed,
         transcript_reference,
-        clair_model,
         input_ch.bam.mix(convertFastqToBam.out)
     )
 
