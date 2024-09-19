@@ -71,7 +71,10 @@ workflow {
     // parse it as a CSV file, and split it into three
     // channels based on the value of the `filetype` column.
     Channel
-        .fromPath(params.input, checkIfExists: true)
+        .fromPath(
+            params.input.split(",").toList(),
+            checkIfExists: true
+        )
         .splitCsv(header: true, sep: ',')
         .branch {
             bam: it.filetype == 'bam'
