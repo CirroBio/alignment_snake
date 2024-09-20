@@ -4,7 +4,7 @@ from cirro.helpers.preprocess_dataset import PreprocessDataset
 import pandas as pd
 
 # Get the information about the dataset provided by the user for analysis
-ds = PreprocessDataset()
+ds = PreprocessDataset.from_running()
 
 # The table of files that are provided as inputs to the analysis
 # are in the table ds.files:
