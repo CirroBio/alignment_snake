@@ -105,7 +105,7 @@ workflow {
 
     // Reference genome FASTA
     refgenome = file(params.refgenome, checkIfExists: true)
-    refgenome_index = file(params.refgenome_index, checkIfExists: true)
+    refgenome_faidx = file(params.refgenome_faidx, checkIfExists: true)
 
     // Transcript reference GTF 
     transcript_reference = file(params.transcript_reference, checkIfExists: true)
@@ -117,7 +117,7 @@ workflow {
     alignment_snake(
         repo,
         refgenome,
-        refgenome_index,
+        refgenome_faidx,
         minimap2_index.out,
         bed,
         transcript_reference,
