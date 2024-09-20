@@ -71,9 +71,15 @@ echo """{
 echo "BAM file to process: ${bam}"
 echo -ne '${bam}' > config/targets.txt
 
+echo "Targets file:"
+cat config/targets.txt
+
 # Write out the sample metadata table
 echo """SampleID	ExternalID	Project	Member	Flowcell	Kit	Sex	Methylation	TargetGene	BedFile	Strategy
 ${bam}	${sample_id}	${params.project}	${params.member}	${params.flowcell}	${params.kit}		${params.methylation}	${params.target_gene}	${gene_annotation_bed}	${params.strategy}""" > config/samples.tsv
+
+echo "Sample metadata table:"
+cat config/samples.tsv
 
 # Run the snakemake command inside the conda environment alignmentCalling
 mamba run -n snakemake snakemake -p --use-conda --cores ${task.cpus} --configfile config/config.json --report-html-path report.html
