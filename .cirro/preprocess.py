@@ -17,6 +17,11 @@ input = ds.files.assign(
     )
 )
 
+# Replace any '-' with '_' in the 'sample' column
+input = input.assign(
+    sample=input['sample'].str.replace('-', '_')
+)
+
 # Write the table to 'input.csv'
 input.to_csv('input.csv', index=False)
 # The workflow already knows to read that file as input (as defined in process-input.json)
