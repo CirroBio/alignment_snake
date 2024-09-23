@@ -56,7 +56,8 @@ process alignment_snake {
     tuple val(sample_id), path("input.bam")
 
     output:
-    path "output"
+    path "output", optional: true
+    path "work", optional: true
 
     script:
     template "alignment_snake.sh"
