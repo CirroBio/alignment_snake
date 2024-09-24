@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 # Write out the config used to run the workflow
 echo """{
   \"samples\": \"config/samples.tsv\",
@@ -43,8 +41,8 @@ echo """{
   \"transcript_reference\": \"${transcript_reference}\",
   \"bedfiledir\": \"/n/alignments/bed_targets\",
   \"clairmodelpath\": \"/opt/conda/envs/alignmentCalling/bin/models\",
-  \"vep_caches_path\": \"/n/dat/vep\",
-  \"vep_data_path\": \"/n/dat/annotationData\",
+  \"vep_caches_path\": \"\$PWD/vep_cache\",
+  \"vep_data_path\": \"\$PWD/annotationData\",
   \"conda_alignment\": \"alignmentCalling\",
   \"conda_rust\": \"rust_plus\",
   \"conda_vep\": \"vep-111.0\",
