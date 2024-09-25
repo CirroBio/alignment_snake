@@ -11,7 +11,7 @@ echo """{
   \"sampleDB_prefix_column_names\": \"SampleID,Strategy,Flowcell,Kit,Project,ExternalID,TargetGene,Methylation,Member\",
   \"basecalled_bam_string\": \"{wildcards.SAMPLEID}*{wildcards.STRATEGY}*\",
   \"explicitLibraries\": true,
-  \"input_dir\": \"\$PWD/\",
+  \"input_dir\": \"\$PWD\",
   \"final_dir\": \"\$PWD/output\",
   \"working_dir\": \"\$PWD/work\",
   \"threads\": ${task.cpus},
