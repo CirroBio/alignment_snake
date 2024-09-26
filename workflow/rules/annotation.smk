@@ -114,7 +114,6 @@ rule run_vep_111:
         GNOMAD="{}/gnomad.genomes.v4.0.sites.hg38.vcf.gz".format(config["vep_data_path"]),
         CLINVAR="{}/clinvar.hg38.20240221.vcf.gz".format(config["vep_data_path"]),
         ALPHAMISSENSE="{}/AlphaMissense_hg38.tsv.gz".format(config["vep_data_path"]),
-        OPENTARGETS="{}/OTGenetics.tsv.gz".format(config["vep_data_path"]),
         SPLICEVAULT="{}/SpliceVault_data_GRCh38.tsv.gz".format(config["vep_data_path"]),
         DOSAGE="{}/Collins_rCNV_2022.dosage_sensitivity_scores.tsv.gz".format(config["vep_data_path"]),
         cache_directory="{}/.vep111".format(config["vep_caches_path"]),
@@ -133,7 +132,6 @@ rule run_vep_111:
         SPLICEAIINDEL={params.SPLICEAIINDEL}
         GNOMAD={params.GNOMAD}
         CLINVAR={params.CLINVAR}
-        OPENTARGETS={params.OPENTARGETS}
         SPLICEVAULT={params.SPLICEVAULT}
         DOSAGE={params.DOSAGE}
         THREADS={threads}
@@ -143,7 +141,7 @@ rule run_vep_111:
         --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype \
         --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic \
         --dir_plugins $plugin_dir --plugin SpliceVault,file=$SPLICEVAULT \
-        --plugin OpenTargets,file=$OPENTARGETS --plugin DosageSensitivity,file=$DOSAGE \
+        --plugin DosageSensitivity,file=$DOSAGE \
         --plugin AlphaMissense,file=$ALPHAMISSENSE --plugin CADD,$CADD --plugin SpliceAI,snv=$SPLICEAISNV,indel=$SPLICEAIINDEL \
         --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF \
         --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
@@ -182,8 +180,8 @@ rule filter_vep_111:
         CANONICAL REFSEQ_MATCH SOURCE REFSEQ_OFFSET GENE_PHENO SIFT PolyPhen DOMAINS AF_POP AFR_AF AMR_AF EAS_AF EUR_AF SAS_AF MAX_AF \
         MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS \
         SpliceVault_SpliceAI_delta SpliceVault_out_of_frame_events SpliceVault_site_max_depth SpliceVault_site_pos \
-        SpliceVault_site_sample_count SpliceVault_site_type SpliceVault_top_events OpenTargets_geneId \
-        OpenTargets_l2g pHaplo pTriplo am_class am_pathogenicity CADD_PHRED CADD_RAW SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL \
+        SpliceVault_site_sample_count SpliceVault_site_type SpliceVault_top_events \
+        pHaplo pTriplo am_class am_pathogenicity CADD_PHRED CADD_RAW SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL \
         SpliceAI_pred_DP_DG SpliceAI_pred_DP_DL SpliceAI_pred_DS_AG SpliceAI_pred_DS_AL SpliceAI_pred_DS_DG SpliceAI_pred_DS_DL \
         SpliceAI_pred_SYMBOL gnomADg gnomADg_AF ClinVar ClinVar_CLNSIG ClinVar_CLNREVSTAT ClinVar_CLNDN"
 
