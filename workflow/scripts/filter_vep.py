@@ -9,7 +9,7 @@ def sort_snps(x):
     return "INDEL"
 
 #run a few shell commands to filter vep with its own built in tool, get the length of the header, and pull the names of additional columns in the INFO field
-vep_filter_cmd=" ".join(["filter_vep -i", snakemake.input.vep_vcf, "-o", snakemake.output.vep_intermediate, """--filter "(MAX_AF <= 0.01 or not MAX_AF) and (gnomADg_AF <= 0.01 or not gnomADg_AF) and (FILTER != LowQual)" --format vcf --force_overwrite"""])
+vep_filter_cmd=" ".join(["filter_vep -i", snakemake.input.vep_vcf, "-o", snakemake.output.vep_intermediate, """--filter "(MAX_AF <= 0.01 or not MAX_AF) and (FILTER != LowQual)" --format vcf --force_overwrite"""])
 vepFilterOut=sp.getoutput(vep_filter_cmd)
 skiplines= sp.getoutput(" ".join(["grep '^##*'", snakemake.output.vep_intermediate,"| wc -l"]))
 skiplines=int(skiplines)

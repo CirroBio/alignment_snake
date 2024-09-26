@@ -27,8 +27,7 @@ rule run_vep:
         o = "".join(["logs/",LOG_REGEX,"run_vep","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep","-stderr.log"])
     params:
-        GNOMAD="{}/gnomad.genomes.v4.0.sites.hg38.vcf.gz".format(config["vep_data_path"]),
-        CLINVAR="{}/clinvar.hg38.20240221.vcf.gz".format(config["vep_data_path"]),
+        CLINVAR="{}/clinvar_20240917.vcf.gz".format(config["vep_data_path"]),
         ALPHAMISSENSE="{}/AlphaMissense_hg38.tsv.gz".format(config["vep_data_path"]),
         cache_directory="{}/.vep".format(config["vep_caches_path"]),
         plugin_dir="{}/.vep/Plugins".format(config["vep_caches_path"]),
@@ -42,11 +41,10 @@ rule run_vep:
         cache_directory={params.cache_directory}
         plugin_dir={params.plugin_dir}
         ALPHAMISSENSE={params.ALPHAMISSENSE}
-        GNOMAD={params.GNOMAD}
         CLINVAR={params.CLINVAR}
         THREADS={threads}
-        #vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --merged --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom $GNOMAD,gnomADg,vcf,exact,0,AF --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
-        vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic --dir_plugins $plugin_dir --plugin AlphaMissense,file=$ALPHAMISSENSE --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
+        #vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --merged --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
+        vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic --dir_plugins $plugin_dir --plugin AlphaMissense,file=$ALPHAMISSENSE --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
         echo "VEP output for {wildcards.SAMPLEID} in project {wildcards.PROJECT_ID} has completed. It is likely being moved to /n/alignments. "
         """
 
@@ -81,7 +79,7 @@ rule filter_vep:
         INTRON HGVSc HGVSp cDNA_position CDS_position Protein_position Amino_acids Codons Existing_variation DISTANCE STRAND FLAGS SYMBOL_SOURCE HGNC_ID \
         CANONICAL REFSEQ_MATCH SOURCE REFSEQ_OFFSET GENE_PHENO SIFT PolyPhen DOMAINS AF_POP AFR_AF AMR_AF EAS_AF EUR_AF SAS_AF MAX_AF \
         MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS \
-        am_class am_pathogenicity gnomADg gnomADg_AF ClinVar ClinVar_CLINSIG \
+        am_class am_pathogenicity ClinVar ClinVar_CLINSIG \
         ClinVar_CLNREVSTAT ClinVar_CLNDN"
 
         echo $colnames | tr ' ' ',' > {output.vep_lt1_vcf}
@@ -101,8 +99,7 @@ rule run_vep_111:
         o = "".join(["logs/",LOG_REGEX,"run_vep_111","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep_111","-stderr.log"])
     params:
-        GNOMAD="{}/gnomad.genomes.v4.0.sites.hg38.vcf.gz".format(config["vep_data_path"]),
-        CLINVAR="{}/clinvar.hg38.20240221.vcf.gz".format(config["vep_data_path"]),
+        CLINVAR="{}/clinvar_20240917.vcf.gz".format(config["vep_data_path"]),
         ALPHAMISSENSE="{}/AlphaMissense_hg38.tsv.gz".format(config["vep_data_path"]),
         SPLICEVAULT="{}/SpliceVault_data_GRCh38.tsv.gz".format(config["vep_data_path"]),
         DOSAGE="{}/Collins_rCNV_2022.dosage_sensitivity_scores.tsv.gz".format(config["vep_data_path"]),
@@ -117,7 +114,6 @@ rule run_vep_111:
         cache_directory={params.cache_directory}
         plugin_dir={params.plugin_dir}
         ALPHAMISSENSE={params.ALPHAMISSENSE}
-        GNOMAD={params.GNOMAD}
         CLINVAR={params.CLINVAR}
         SPLICEVAULT={params.SPLICEVAULT}
         DOSAGE={params.DOSAGE}
@@ -130,7 +126,6 @@ rule run_vep_111:
         --dir_plugins $plugin_dir --plugin SpliceVault,file=$SPLICEVAULT \
         --plugin DosageSensitivity,file=$DOSAGE \
         --plugin AlphaMissense,file=$ALPHAMISSENSE \
-        --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF \
         --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
         """
 
@@ -168,7 +163,7 @@ rule filter_vep_111:
         MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS \
         SpliceVault_out_of_frame_events SpliceVault_site_max_depth SpliceVault_site_pos \
         SpliceVault_site_sample_count SpliceVault_site_type SpliceVault_top_events \
-        pHaplo pTriplo am_class am_pathogenicity gnomADg gnomADg_AF ClinVar ClinVar_CLNSIG ClinVar_CLNREVSTAT ClinVar_CLNDN"
+        pHaplo pTriplo am_class am_pathogenicity ClinVar ClinVar_CLNSIG ClinVar_CLNREVSTAT ClinVar_CLNDN"
 
         echo $colnames | tr ' ' ',' > {output.vep_lt1_vcf}
         awk '{{if($47>0.01 || $85 > 0.01){{next}}else{{type="SNV";if(length($3)!=length($4)){{type="INDEL"}};\
