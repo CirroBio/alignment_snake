@@ -27,7 +27,6 @@ rule run_vep:
         o = "".join(["logs/",LOG_REGEX,"run_vep","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep","-stderr.log"])
     params:
-        CADD="{}/CADDv1.6_hg38_whole_genome_SNVs.tsv.gz".format(config["vep_data_path"]),
         SPLICEAISNV="{}/spliceai_scores.raw.snv.hg38.vcf.gz".format(config["vep_data_path"]),
         SPLICEAIINDEL="{}/spliceai_scores.raw.indel.hg38.vcf.gz".format(config["vep_data_path"]),
         GNOMAD="{}/gnomad.genomes.v4.0.sites.hg38.vcf.gz".format(config["vep_data_path"]),
@@ -45,14 +44,13 @@ rule run_vep:
         cache_directory={params.cache_directory}
         plugin_dir={params.plugin_dir}
         ALPHAMISSENSE={params.ALPHAMISSENSE}
-        CADD={params.CADD}
         SPLICEAISNV={params.SPLICEAISNV}
         SPLICEAIINDEL={params.SPLICEAIINDEL}
         GNOMAD={params.GNOMAD}
         CLINVAR={params.CLINVAR}
         THREADS={threads}
         #vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --merged --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom $GNOMAD,gnomADg,vcf,exact,0,AF --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
-        vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic --dir_plugins $plugin_dir --plugin AlphaMissense,file=$ALPHAMISSENSE --plugin CADD,$CADD --plugin SpliceAI,snv=$SPLICEAISNV,indel=$SPLICEAIINDEL --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
+        vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens --fork $THREADS -o $output --cache --offline --dir_cache $cache_directory --canonical --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic --dir_plugins $plugin_dir --plugin AlphaMissense,file=$ALPHAMISSENSE --plugin SpliceAI,snv=$SPLICEAISNV,indel=$SPLICEAIINDEL --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
         echo "VEP output for {wildcards.SAMPLEID} in project {wildcards.PROJECT_ID} has completed. It is likely being moved to /n/alignments. "
         """
 
@@ -86,8 +84,8 @@ rule filter_vep:
         colnames="IGV TYPE DP_ALT DP_REF CHROM POS REF ALT QUAL GT DP AF PS Allele Consequence IMPACT SYMBOL Gene Feature_type Feature BIOTYPE EXON \
         INTRON HGVSc HGVSp cDNA_position CDS_position Protein_position Amino_acids Codons Existing_variation DISTANCE STRAND FLAGS SYMBOL_SOURCE HGNC_ID \
         CANONICAL REFSEQ_MATCH SOURCE REFSEQ_OFFSET GENE_PHENO SIFT PolyPhen DOMAINS AF_POP AFR_AF AMR_AF EAS_AF EUR_AF SAS_AF MAX_AF \
-        MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS CADD_PHRED \
-        CADD_RAW SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL SpliceAI_pred_DP_DG SpliceAI_pred_DP_DL SpliceAI_pred_DS_AG SpliceAI_pred_DS_AL \
+        MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS \
+        SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL SpliceAI_pred_DP_DG SpliceAI_pred_DP_DL SpliceAI_pred_DS_AG SpliceAI_pred_DS_AL \
         SpliceAI_pred_DS_DG SpliceAI_pred_DS_DL SpliceAI_pred_SYMBOL am_class am_pathogenicity gnomADg gnomADg_AF ClinVar ClinVar_CLINSIG \
         ClinVar_CLNREVSTAT ClinVar_CLNDN"
 
@@ -108,7 +106,6 @@ rule run_vep_111:
         o = "".join(["logs/",LOG_REGEX,"run_vep_111","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep_111","-stderr.log"])
     params:
-        CADD="{}/CADDv1.6_hg38_whole_genome_SNVs.tsv.gz".format(config["vep_data_path"]),
         SPLICEAISNV="{}/spliceai_scores.raw.snv.hg38.vcf.gz".format(config["vep_data_path"]),
         SPLICEAIINDEL="{}/spliceai_scores.raw.indel.hg38.vcf.gz".format(config["vep_data_path"]),
         GNOMAD="{}/gnomad.genomes.v4.0.sites.hg38.vcf.gz".format(config["vep_data_path"]),
@@ -127,7 +124,6 @@ rule run_vep_111:
         cache_directory={params.cache_directory}
         plugin_dir={params.plugin_dir}
         ALPHAMISSENSE={params.ALPHAMISSENSE}
-        CADD={params.CADD}
         SPLICEAISNV={params.SPLICEAISNV}
         SPLICEAIINDEL={params.SPLICEAIINDEL}
         GNOMAD={params.GNOMAD}
@@ -142,7 +138,7 @@ rule run_vep_111:
         --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic \
         --dir_plugins $plugin_dir --plugin SpliceVault,file=$SPLICEVAULT \
         --plugin DosageSensitivity,file=$DOSAGE \
-        --plugin AlphaMissense,file=$ALPHAMISSENSE --plugin CADD,$CADD --plugin SpliceAI,snv=$SPLICEAISNV,indel=$SPLICEAIINDEL \
+        --plugin AlphaMissense,file=$ALPHAMISSENSE --plugin SpliceAI,snv=$SPLICEAISNV,indel=$SPLICEAIINDEL \
         --custom file=$GNOMAD,short_name=gnomADg,format=vcf,type=exact,coords=0,fields=AF \
         --custom file=$CLINVAR,short_name=ClinVar,format=vcf,type=exact,coords=0,fields=CLNSIG%CLNREVSTAT%CLNDN 2>> {log.e}
         """
@@ -181,7 +177,7 @@ rule filter_vep_111:
         MAX_AF_POPS CLIN_SIG SOMATIC PHENO PUBMED MOTIF_NAME MOTIF_POS HIGH_INF_POS MOTIF_SCORE_CHANGE TRANSCRIPTION_FACTORS \
         SpliceVault_SpliceAI_delta SpliceVault_out_of_frame_events SpliceVault_site_max_depth SpliceVault_site_pos \
         SpliceVault_site_sample_count SpliceVault_site_type SpliceVault_top_events \
-        pHaplo pTriplo am_class am_pathogenicity CADD_PHRED CADD_RAW SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL \
+        pHaplo pTriplo am_class am_pathogenicity SpliceAI_pred_DP_AG SpliceAI_pred_DP_AL \
         SpliceAI_pred_DP_DG SpliceAI_pred_DP_DL SpliceAI_pred_DS_AG SpliceAI_pred_DS_AL SpliceAI_pred_DS_DG SpliceAI_pred_DS_DL \
         SpliceAI_pred_SYMBOL gnomADg gnomADg_AF ClinVar ClinVar_CLNSIG ClinVar_CLNREVSTAT ClinVar_CLNDN"
 
