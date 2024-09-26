@@ -5,6 +5,7 @@
     "refgenome_faidx": "s3://pubweb-references/igenomes/Homo_sapiens/UCSC/hg38/Sequence/WholeGenomeFasta/genome.fa.fai",
     "transcript_reference": "s3://pubweb-references/igenomes/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf",
     "vep_cache": "s3://pubweb-references/vep/111_GRCh38/",
+    "annotation_data": "s3://pubweb-references/annotationData/",
     "bed": "$.params.dataset.paramJson.bed",
     "project": "$.params.dataset.paramJson.project",
     "member": "$.params.dataset.paramJson.member",

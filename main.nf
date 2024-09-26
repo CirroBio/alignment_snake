@@ -54,6 +54,7 @@ process alignment_snake {
     path gene_annotation_bed
     path transcript_reference
     path "vep_cache/.vep111"
+    path "annotationData"
     tuple val(sample_id), path("input.bam")
 
     output:
@@ -107,6 +108,9 @@ workflow {
     // VEP cache
     vep_cache = file(params.vep_cache, checkIfExists: true, type: "dir")
 
+    // annotationData
+    annotation_data = file(params.annotation_data, checkIfExists: true, type: "dir")
+
     // Reference genome FASTA
     refgenome = file(params.refgenome, checkIfExists: true)
     refgenome_faidx = file(params.refgenome_faidx, checkIfExists: true)
@@ -126,6 +130,7 @@ workflow {
         bed,
         transcript_reference,
         vep_cache,
+        annotation_data,
         input_ch.bam.mix(convertFastqToBam.out)
     )
 
