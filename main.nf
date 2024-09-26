@@ -53,7 +53,7 @@ process alignment_snake {
     path refgenome_mmi
     path gene_annotation_bed
     path transcript_reference
-    path "vep_cache"
+    path "vep_cache/.vep111"
     tuple val(sample_id), path("input.bam")
 
     output:
