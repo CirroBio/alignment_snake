@@ -6,7 +6,7 @@ rule subsample_bam:
         bam=temp("".join([PREFIX_REGEX, ".subsampled.phased.bam"])),
         bai=temp("".join([PREFIX_REGEX, ".subsampled.phased.bam.bai"])),
         stats=temp("".join([PREFIX_REGEX, ".subsampled.phased.stats"]))
-    threads: THREADS
+    threads: config["threads"]
     params:
         f=0.10
     conda: config["conda_samtools"]

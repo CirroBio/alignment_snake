@@ -7,7 +7,7 @@ rule make_fastqs:
     log:
         o = "".join(["logs/",LOG_REGEX,"make_fastqs","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"make_fastqs","-stderr.log"])
-    threads: THREADS
+    threads: config["threads"]
     conda:
         config["conda_samtools"]
     params:
@@ -35,7 +35,7 @@ rule make_alignment:
         fastq_completion="".join([SAMPLE_WORKPATH, "-temp_fastq.log"])
     output:
         aligned_bam = temp("".join([SAMPLE_WORKPATH, ".notPhased.bam"])),
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_minimap"]
     log:
@@ -52,7 +52,7 @@ rule index_alignment:
         aligned_bam = "".join([SAMPLE_WORKPATH, ".notPhased.bam"])
     output:
         aligned_bam_index = temp("".join([SAMPLE_WORKPATH, ".notPhased.bam.bai"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_samtools"]
     shell:
@@ -69,7 +69,7 @@ rule run_clair3:
         clair3_phased_vcf_index=temp("".join([SAMPLE_WORKPATH, ".clair3.phased.vcf.gz.tbi"])),
         clair3_not_phased_vcf=temp("".join([SAMPLE_WORKPATH, ".clair3.notPhased.vcf.gz"])),
         clair3_not_phased_vcf_index=temp("".join([SAMPLE_WORKPATH, ".clair3.notPhased.vcf.gz.tbi"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"run_clair3","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_clair3","-stderr.log"])

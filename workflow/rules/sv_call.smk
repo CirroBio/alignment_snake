@@ -5,7 +5,7 @@ rule run_sniffles2:
         aligned_bam_index = "".join([SAMPLE_WORKPATH, ".notPhased.bam.bai"])
     output:
         sniffles_unphased=temp("".join([SAMPLE_WORKPATH, ".sv_sniffles.notPhased.vcf"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_sniffles"]
     log:
@@ -48,7 +48,7 @@ rule run_cuteSV:
         aligned_bam_index = "".join([SAMPLE_WORKPATH, ".notPhased.bam.bai"])
     output:
         cutesv_unphased=temp("".join([SAMPLE_WORKPATH, ".sv_cutesv.notPhased.vcf"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"run_cutesv","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_cutesv","-stderr.log"])

@@ -5,7 +5,7 @@ rule filter_clair3_vcf:
         clair3_phased_vcf_index="".join([SAMPLE_WORKPATH, ".clair3.phased.vcf.gz.tbi"])
     output:
         clair3_phased_filtered_vcf=temp("".join([SAMPLE_WORKPATH, ".clair3.phased.filtered.vcf.gz"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"filter_clair3","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"filter_clair3","-stderr.log"])
@@ -22,7 +22,7 @@ rule run_vep:
         clair3_phased_filtered_vcf="".join([SAMPLE_WORKPATH, ".clair3.phased.filtered.vcf.gz"])
     output:
         vep_vcf=temp("".join([SAMPLE_WORKPATH, ".clair3.phased.vep.vcf"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"run_vep","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep","-stderr.log"])
@@ -94,7 +94,7 @@ rule run_vep_111:
         clair3_phased_filtered_vcf="".join([SAMPLE_WORKPATH, ".clair3.phased.filtered.vcf.gz"])
     output:
         vep_vcf=temp("".join([SAMPLE_WORKPATH, ".clair3.phased.vep.111.vcf"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"run_vep_111","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"run_vep_111","-stderr.log"])

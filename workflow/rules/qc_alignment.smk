@@ -35,7 +35,7 @@ rule run_samtools_stats:
         bai = "".join([WORKDIR, "/", PREFIX_REGEX, ".phased.bam.bai"])
     output:
         stats = temp("".join([WORKDIR, "/", PREFIX_REGEX, ".phased.samtools.stats"]))
-    threads: THREADS
+    threads: config["threads"]
     conda: config["conda_samtools"]
     shell:
         """

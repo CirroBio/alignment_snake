@@ -8,7 +8,7 @@ rule pychop:
         fastq_completion="".join([SAMPLE_WORKPATH, "-temp_fastq.log"])
     output:
         full_read_set = temp("".join([SAMPLE_WORKPATH, ".pychop.fastq"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_pychopper"]
     log:
@@ -28,7 +28,7 @@ rule skipPychop:
         fastq_completion="".join([SAMPLE_WORKPATH, "-temp_fastq.log"])
     output:
         full_read_set = temp("".join([SAMPLE_WORKPATH, ".raw.fastq"]))
-    threads: THREADS
+    threads: config["threads"]
     shell:
         """
         mv {input.fastqfile} {output.full_read_set}
@@ -42,7 +42,7 @@ rule alignCDNA:
     output:
         aligned_bam = temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.bam"])),
         aligned_index = temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.bam.bai"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_minimap"]
     log:
@@ -68,7 +68,7 @@ rule runStringTie:
         gtf = temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gtf"])),
         abundance = temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.abundance.tab"])),
         coverage = temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.coverage.gtf"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_stringtie"]
     log:
@@ -95,7 +95,7 @@ rule gffCompare:
         tracking=temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gffcompare.tracking"])),
         loci=temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gffcompare.loci"])),
         log=temp("".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gffcompare"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
         config["conda_gffcompare"]
     log:
@@ -122,7 +122,7 @@ rule gffRead:
         annotated_gtf="".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gffcompare.annotated.gtf"])
     output:
         transcriptome=temp( "".join([SAMPLE_WORKPATH, ".{chopped}.aligned.gffcompare.annotated.transcriptome.fa"]) )
-    threads: THREADS
+    threads: config["threads"]
     conda:
         config["conda_gffread"]
     log:

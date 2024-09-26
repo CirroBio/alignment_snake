@@ -7,7 +7,7 @@ rule phase_vcf:
         sv_vcf="".join([SAMPLE_WORKPATH, ".sv_{svcaller}.notPhased.vcf"])
     output:
         sv_phased_vcf=temp("".join([SAMPLE_WORKPATH, ".sv_{svcaller}.phased.vcf"]))
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"-{svcaller}-","phase_vcf","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"-{svcaller}-","phase_vcf","-stderr.log"])
@@ -35,7 +35,7 @@ rule phase_bamfile:
         phased_bam_index=temp("".join([SAMPLE_WORKPATH, ".phased.bam.bai"]))
     conda:
          config["conda_longphase"]
-    threads: THREADS
+    threads: config["threads"]
     log:
         o = "".join(["logs/",LOG_REGEX,"phase_bamfile","-stdout.log"]),
         e = "".join(["logs/",LOG_REGEX,"phase_bamfile","-stderr.log"])
