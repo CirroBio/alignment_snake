@@ -141,7 +141,7 @@ rule run_vep_111:
         THREADS={threads}
         
         vep -i $input --force_overwrite --vcf --buffer_size 50000 --species homo_sapiens \
-        --fork $THREADS -o $output --cache --merged --offline --dir_cache $cache_directory --canonical \
+        --fork $THREADS -o $output --cache --offline --dir_cache $cache_directory --canonical \
         --symbol --numbers --assembly GRCh38 --use_given_ref --pick_allele --domains --pubmed --gene_phenotype \
         --sift b --polyphen b --regulatory --total_length --af --max_af --af_1kg --custom_multi_allelic \
         --dir_plugins $plugin_dir --plugin SpliceVault,file=$SPLICEVAULT \
