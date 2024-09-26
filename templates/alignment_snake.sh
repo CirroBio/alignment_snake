@@ -81,4 +81,4 @@ cat config/samples.tsv
 
 # Run the snakemake command inside the conda environment alignmentCalling
 TMPDIR=$PWD/tmp \
-mamba run -n snakemake snakemake -p --use-conda --cores ${task.cpus} --configfile config/config.json --report-html-path report.html
+mamba run -n snakemake snakemake -p --use-conda --cores ${task.cpus} --configfile config/config.json --report-html-path report.html || true
