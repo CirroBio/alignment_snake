@@ -22,7 +22,7 @@ RUN conda config --add channels conda-forge && \
     conda env create -f /envs/longphase-1.7.3.yaml && \
     conda clean --all --yes
 RUN conda run -n qdnaseq-1.34.0 Rscript -e "devtools::install_github('asntech/QDNAseq.hg38@main');"
-RUN conda install -n base -c conda-forge mamba && \
+RUN conda install --yes -n base -c conda-forge mamba && \
     mamba init && \
     mamba create -c conda-forge -c bioconda -n snakemake snakemake && \
     mamba clean --all --yes && \
