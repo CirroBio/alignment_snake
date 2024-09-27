@@ -61,7 +61,7 @@ echo """{
   \"conda_svim\": \"alignmentCalling\",
   \"conda_longphase\": \"longphase-1.7.3\",
   \"conda_qdnaseq\": \"qdnaseq-1.34.0\",
-  \"conda_cramino\": \"cramino-0.14.1 \",
+  \"conda_cramino\": \"alignmentCalling\",
   \"conda_karyoplotR\": \"karyplotR-1.28.0\"
 }""" > config/config.json
 
