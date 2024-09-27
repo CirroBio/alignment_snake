@@ -14,3 +14,4 @@ dependencies:
  - r-rcolorbrewer
  - r-kableextra
  - r-reshape2
+ - r-cowplot
