@@ -45,7 +45,7 @@ process minimap2_index {
 
 // Process used to run the snakemake workflow
 process alignment_snake {
-    publishDir "${params.outdir}", mode: 'copy', overwrite: true
+    publishDir "${params.outdir}/${sample_id}/", mode: 'copy', overwrite: true
     input:
     path "*"
     path refgenome_fa
@@ -58,7 +58,9 @@ process alignment_snake {
     tuple val(sample_id), path("input.bam")
 
     output:
-    path "*", hidden: true
+    path "*.pdf"
+    path "input.bam*"
+    path "logs/*"
 
     script:
     template "alignment_snake.sh"
