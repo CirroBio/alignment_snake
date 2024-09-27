@@ -9,7 +9,7 @@ threads=args[3]
 library(QDNAseq)
 library(QDNAseq.hg38)
 
-future::plan("multisession", workers=threads)
+future::plan("multisession")
 
 bins <- getBinAnnotations(binSize=10, genome="hg38")
 readCounts <- binReadCounts(bins, bamfiles=bamfile)

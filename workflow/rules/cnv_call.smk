@@ -7,7 +7,7 @@ rule run_qdnaseq:
         qdnaseq_bins=temp("".join([SAMPLE_WORKPATH, ".cnv.bins.txt"])),
         qdnaseq_vcf=temp("".join([SAMPLE_WORKPATH, ".called_cnv.vcf"])),
         qdnaseq_pdf=temp("".join([SAMPLE_WORKPATH, ".called_cnv.pdf"]))
-    threads: THREADS
+    threads: config["threads"]
     conda:
          config["conda_qdnaseq"]
     log:
