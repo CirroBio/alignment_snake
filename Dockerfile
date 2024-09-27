@@ -5,6 +5,7 @@ RUN conda config --add channels conda-forge && \
     conda config --add channels bioconda && \
     conda config --add channels R && \
     conda config --add channels esri && \
+    conda config --set ssl_verify no && \
     conda env create -f /envs/alignment.yaml && \
     conda env create -f /envs/alignmentCalling.yaml && \
     conda env create -f /envs/bcftools-1.19.yaml && \
