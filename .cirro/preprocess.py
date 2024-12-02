@@ -12,7 +12,7 @@ ds = PreprocessDataset.from_running()
 # We need to add a column 'filetype' which indicates whether it is a BAM or FASTQ file.
 input = ds.files.assign(
     filetype=ds.files.apply(
-        lambda r: "bam" if r['file'].endswith('.bam') else "fastq",
+        lambda r: "bam" if r['file'].endswith('.bam') or r['file'].endswith('.cram') else "fastq",
         axis=1
     )
 )
