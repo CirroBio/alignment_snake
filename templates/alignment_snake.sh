@@ -79,6 +79,8 @@ input.bam	${sample_id}	${params.project}	${params.member}	${params.flowcell}	${p
 echo "Sample metadata table:"
 cat config/samples.tsv
 
+mkdir -p logs
+
 # Run the snakemake command inside the conda environment alignmentCalling
 TMPDIR=$PWD/tmp \
 mamba run -n snakemake snakemake -p --use-conda --cores ${task.cpus} --configfile config/config.json --report-html-path report.html 2>&1 | tee logs/alignment_snake.log || true
