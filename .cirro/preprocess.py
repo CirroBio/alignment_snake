@@ -25,3 +25,7 @@ input = input.assign(
 # Write the table to 'input.csv'
 input.to_csv('input.csv', index=False)
 # The workflow already knows to read that file as input (as defined in process-input.json)
+
+# Make sure that the user has provided a BED file
+if ds.params.get("bed") is None or len(ds.params.get("bed")) == 0:
+    raise ValueError("Please select a BED file")

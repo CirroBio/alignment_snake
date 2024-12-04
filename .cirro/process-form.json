@@ -62,6 +62,7 @@
                     "samtools"
                 ]
             }
-        }
+        },
+        "required": ["bed"]
     }
 }
